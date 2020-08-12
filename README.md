@@ -35,5 +35,10 @@ docker exec mongodb mongodump --archive --gzip --db mydb > mydb.zip
 docker exec mongodb mongorestore --archive --gzip --db=restoredb < mydb.zip
 ```
 
+**Copy files from container**
+```bash
+docker cp mongodb:./backups/work01 ~/backups 
+```
+
 **Running docker behing ufw**
 https://svenv.nl/unixandlinux/dockerufw/
