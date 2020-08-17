@@ -77,3 +77,6 @@ location /sample/ {
     proxy_redirect http://localhost:5005/ http://$host/sample/;
 }
 ```
+
+You may also need to allow underscores in headers.
+Open `/etc/nginx/nginx.conf` and add `underscores_in_headers on;` in the **http** section.
