@@ -43,6 +43,11 @@ docker cp mongodb:./backups/work01 ~/backups
 **Running docker behing ufw**
 https://svenv.nl/unixandlinux/dockerufw/
 
+**Export and import image**
+```bash
+docker save -o image.tar image:latest
+docker load -i image.tar
+```
 
 
 # Docker sample with nginx
