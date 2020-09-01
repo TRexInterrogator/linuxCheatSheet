@@ -67,19 +67,27 @@ Open `/etc/nginx/sites-available/default`
 The config should look similar to this
 
 ```
-location /sample/ {
-    proxy_pass_header Server;
-    proxy_set_header X-Read-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Scheme $scheme;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-NginX-Proxy true;
-    proxy_connect_timeout 5;
-    proxy_read_timeout 240;
-    proxy_intercept_errors on;
+location /apiworkhours/ {
 
-    proxy_pass http://localhost:5005/;
-    proxy_redirect http://localhost:5005/ http://$host/sample/;
+    proxy_pass http://localhost:5010/;		
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection keep-alive;
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+location /workhours/ {
+        proxy_connect_timeout 5;
+        proxy_read_timeout 240;
+        proxy_intercept_errors on;
+
+        proxy_pass http://localhost:3010/;
+        proxy_redirect http://localhost:3010/ http://$host/workhours/;
 }
 ```
 
